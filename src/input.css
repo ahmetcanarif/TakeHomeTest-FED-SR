@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#settings {
+  @apply invisible transition-all h-full -right-4 w-0 fixed;
+}
+#settings.active {
+  @apply w-[320px] right-0 visible px-4;
+}
+#sidebar {
+  @apply invisible transition-all -left-4 w-0 fixed;
+}
+#sidebar.active {
+  @apply visible left-16 w-[320px]  z-0 h-full;
+}
+#sidebar.active ~ #content {
+  @apply ml-[320px] pl-0;
+}
+#settings.active ~ #content {
+  @apply mr-[320px];
+}
+
+.icon-box {
+  @apply hover:bg-slate-400/40  h-8 flex items-center justify-center cursor-pointer rounded-full w-8;
+}
+
+.filter-box.active {
+  @apply top-full opacity-100 visible;
+}
+
+.tab-button {
+  @apply w-32 px-2 py-4 text-left flex items-center;
+}
+.tab-button.active {
+  @apply border-b-2 border-cyan-500;
+}
+.tab-body {
+  @apply invisible opacity-0  transition-all h-0;
+}
+.tab-body.active {
+  @apply opacity-100 visible   h-auto;
+}
+.mini-sidebar .mini-sidebar-items button {
+  @apply p-6;
+}
+.mini-sidebar .mini-sidebar-items button.active {
+  @apply bg-slate-400/40;
+}
+
+#sidebar .submenu,
+.mini-sidebar-hover-menu .submenu {
+  @apply hidden;
+}
+#sidebar .submenu.active,
+.mini-sidebar-hover-menu .submenu.active {
+  @apply block;
+}
+
+#mail-menu-hover,
+#message-menu-hover {
+  @apply hidden;
+}
+
+#mail-menu-hover.active,
+#message-menu-hover.active {
+  @apply block;
+}

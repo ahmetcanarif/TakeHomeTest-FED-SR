@@ -1,0 +1,11 @@
+{
+  "name": "calisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "start": "npx tailwindcss -i ./src/input.css -o ./dist/css/tailwind.css --watch"
+  },
+  "author": "",
+  "license": "ISC"
+}

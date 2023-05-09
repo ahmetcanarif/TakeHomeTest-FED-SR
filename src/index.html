@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/dist/css/tailwind.css" rel="stylesheet" />
+    <style>
+      * {
+        transition: 0.4sl all;
+      }
+      #mail-menu-hover::before,
+      #message-menu-hover::before {
+        content: "";
+
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent; /* 40px height (20+20) */
+        border-right: 6px solid #fff;
+        position: absolute;
+        z-index: 999999999 !important;
+        width: 10px;
+        height: 10px;
+      }
+      #mail-menu-hover::before {
+        top: 34px;
+        left: -10px;
+      }
+      #message-menu-hover::before {
+        top: 98px;
+        left: -10px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+    <title>Example</title>
+  </head>
+  <body class="h-full overflow-hidden">
+    <div
+      class="mini-sidebar fixed h-full top-0 left-0 bg-gray-300 w-16 z-10 flex justify-center"
+    >
+      <div class="flex flex-col w-full items-center">
+        <div class="h-20 w-full flex items-center justify-center">
+          <div class="icon-box mt-4 openSidebar select-none">
+            <span class="material-symbols-outlined"> menu </span>
+          </div>
+        </div>
+        <ul class="mini-sidebar-items w-full flex flex-col items-center">
+          <li data-item="mail-menu" class="w-full flex justify-center">
+            <button class="icon-box mt-4 select-none active w-full">
+              <span class="material-symbols-outlined">inbox </span>
+            </button>
+          </li>
+          <li data-item="message-menu" class="w-full flex justify-center">
+            <button class="icon-box mt-4 select-none w-full">
+              <span class="material-symbols-outlined">message </span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div style="width: calc(100% - 64px)" class="ml-16">
+      <header
+        style="width: calc(100% - 64px)"
+        class="header bg-gray-200 h-20 fixed top-0 z-50 flex items-center"
+      >
+        <div class="w-[320px] px-4">
+          <img src="/dist/images/logo.svg" alt="Logo" />
+        </div>
+
+        <div class="flex-1 flex h-full py-4">
+          <div
+            class="search-box bg-gray-300 rounded w-[600px] h-full flex relative"
+          >
+            <input
+              class="flex-1 focus:outline-none pl-2 rounded bg-gray-300"
+              placeholder="Arama yapınız..."
+              type="text"
+            />
+            <button
+              class="h-full !flex px-2 justify-center items-center open-filter bg-gray-300 rounded"
+            >
+              <span class="material-symbols-outlined"> tune </span>
+            </button>
+            <div
+              class="absolute left-0 top-0 invisible w-full bg-white placeholder:text-gray-800 rounded border filter-box p-4"
+            >
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <label class="text-sm w-16">From</label>
+                  <input
+                    type="text"
+                    class="w-100 px-2 focus:outline-none border rounded h-10 flex-1"
+                  />
+                </div>
+                <div class="flex items-center">
+                  <label class="text-sm w-16">Text</label>
+                  <input
+                    type="text"
+                    class="w-100 px-2 focus:outline-none border rounded h-10 flex-1"
+                  />
+                </div>
+                <div class="flex justify-end">
+                  <button
+                    type="button"
+                    class="rounded bg-indigo-600 py-2 px-4 text-white hover:bg-indigo-500"
+                  >
+                    Search
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ml-auto pr-4 flex space-x-4 items-center">
+            <button
+              class="openSettings flex items-center justify-center hover:bg-gray-300 w-10 h-10 rounded-full"
+            >
+              <span class="material-symbols-outlined"> settings </span>
+            </button>
+            <button
+              class="openSettings flex items-center justify-center hover:bg-gray-300 w-10 h-10 rounded-full"
+            >
+              <span class="material-symbols-outlined"> apps </span>
+            </button>
+            <div class="w-10 h-10 rounded-full">
+              <img
+                class="w-full rounded-full"
+                src="/dist/images/avatar.png"
+                alt="Avatar"
+              />
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="content relative flex mt-20 overflow-hidden">
+        <div id="sidebar" class="h-full w-80 bg-gray-200 z-10">
+          <div class="p-2 h-full overflow-y-auto">
+            <h2 class="text-2xl">Sidebar</h2>
+            <ul class="m-0 p-0 flex flex-col space-y-2 mt-4">
+              <li class="flex items-center justify-center">
+                <a
+                  href=""
+                  class="flex w-full rounded-full p-2 hover:bg-gray-300"
+                >
+                  <span class="material-symbols-outlined mr-2">inbox</span>
+                  Inbox
+                </a>
+              </li>
+              <li class="flex items-center justify-center">
+                <a
+                  href=""
+                  class="flex w-full rounded-full p-2 hover:bg-gray-300"
+                >
+                  <span class="material-symbols-outlined mr-2">star</span>
+                  Starred
+                </a>
+              </li>
+              <li class="flex items-center justify-center">
+                <a
+                  href=""
+                  class="flex w-full rounded-full p-2 hover:bg-gray-300"
+                >
+                  <span class="material-symbols-outlined mr-2">timer</span>
+                  Snoozed
+                </a>
+              </li>
+              <li class="items-center justify-center">
+                <a
+                  href=""
+                  class="flex w-full rounded-full p-2 hover:bg-gray-300 dropdown"
+                >
+                  <span class="material-symbols-outlined"> expand_more </span>
+                  Categories
+                </a>
+                <ul class="ml-8 submenu">
+                  <li>
+                    <a
+                      href=""
+                      class="flex w-full rounded-full p-2 hover:bg-gray-300 dropdown"
+                    >
+                      <span class="material-symbols-outlined mr-3">
+                        group
+                      </span>
+                      Social
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href=""
+                      class="flex w-full rounded-full p-2 hover:bg-gray-300 dropdown"
+                    >
+                      <span class="material-symbols-outlined mr-3">
+                        error
+                      </span>
+                      Updates
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="h-full w-80 z-10 bg-white shadow-lg fixed rounded mini-sidebar-hover-menu px-4"
+          id="mail-menu-hover"
+        >
+          <ul class="m-0 p-0 flex flex-col space-y-2 mt-4">
+            <li class="flex items-center justify-center">
+              <a href="" class="flex w-full rounded-full p-2 hover:bg-gray-300">
+                <span class="material-symbols-outlined mr-2">inbox</span>
+                Inbox
+              </a>
+            </li>
+            <li class="flex items-center justify-center">
+              <a href="" class="flex w-full rounded-full p-2 hover:bg-gray-300">
+                <span class="material-symbols-outlined mr-2">star</span>
+                Starred
+              </a>
+            </li>
+            <li class="flex items-center justify-center">
+              <a href="" class="flex w-full rounded-full p-2 hover:bg-gray-300">
+                <span class="material-symbols-outlined mr-2">timer</span>
+                Snoozed
+              </a>
+            </li>
+            <li class="items-center justify-center">
+              <a
+                href=""
+                class="flex w-full rounded-full p-2 hover:bg-gray-300 dropdown"
+              >
+                <span class="material-symbols-outlined"> expand_more </span>
+                Categories
+              </a>
+              <ul class="ml-8 submenu">
+                <li>
+                  <a
+                    href=""
+                    class="flex w-full rounded-full p-2 hover:bg-gray-300 dropdown"
+                  >
+                    <span class="material-symbols-outlined mr-3"> group </span>
+                    Social
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href=""
+                    class="flex w-full rounded-full p-2 hover:bg-gray-300 dropdown"
+                  >
+                    <span class="material-symbols-outlined mr-3"> error </span>
+                    Updates
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="h-full w-80 z-10 bg-white shadow-lg fixed rounded mini-sidebar-hover-menu px-4"
+          id="message-menu-hover"
+        >
+          <h2 class="font-bold text-xl mt-4">Messages</h2>
+        </div>
+        <div id="settings" class="bg-gray-200 p-2">
+          <div class="bg-white p-4 rounded h-full overflow-y-auto">
+            <h2 class="text-2xl">Settings</h2>
+          </div>
+        </div>
+        <div
+          id="content"
+          style="height: calc(100vh - 80px)"
+          class="bg-gray-200 z-99 w-full p-4 flex-1 flex-grow overflow-y-auto transition-all"
+        >
+          <div class="tab-content bg-white rounded overflow-hidden">
+            <div class="tab-header bg-white flex space-x-8 rounded-t border-b">
+              <button class="tab-button active">
+                <span class="material-symbols-outlined mr-2"> inbox </span>
+                Primary
+              </button>
+              <button class="tab-button">
+                <span class="material-symbols-outlined mr-2"> sell </span>
+                Promotion
+              </button>
+              <button class="tab-button">
+                <span class="material-symbols-outlined mr-2"> group </span>
+                Social
+              </button>
+            </div>
+            <div class="tab-body active">
+              <ul class="m-0 p-0">
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-body">
+              <ul class="m-0 p-0">
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-body">
+              <ul class="m-0 p-0">
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+                <li
+                  class="hover:bg-gray-100 border cursor-pointer w-full rounded p-2 flex space-x-4"
+                >
+                  <span class="material-symbols-outlined mr-2"> star </span>
+                  <span class="open-toast material-symbols-outlined mr-2">
+                    bookmark
+                  </span>
+                  <span class="material-symbols-outlined mr-2"> flag </span>
+                  <h4 class="font-bold">Test Mail Başlık</h4>
+                  <span> - </span>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Iusto molestiae cumque eveniet eos deserunt sapiente?
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/dist/js/main.js"></script>
+  </body>
+</html>
